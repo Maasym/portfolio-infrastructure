@@ -1,0 +1,14 @@
+controller:
+  customConfigMap: nginx-ingress-config
+  enableCustomResources: true
+  enableSnippets: true
+  enableTLSPassthrough: true
+  globalConfiguration:
+    create: true
+  replicaCount: 2
+  resources:
+    requests:
+      cpu: 10m
+      memory: 128Mi
+prometheus:
+  create: true
