@@ -13,4 +13,5 @@ spec:
             backend:
               service:
                 name: apple-service
-                servicePort: 5678g
+                port:
+                  number: 5678g
