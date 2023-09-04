@@ -1,0 +1,17 @@
+server:
+  additionalApplications:
+    - name: cluster-config
+      namespace: argocd
+      project: default
+      source:
+        repoURL: https://github.com/Maasym/portfolio-infrastructure.git
+        targetRevision: HEAD
+        path: portfolio-manifests
+        directory:
+          recurse: true
+      destination:
+        server: aks-g1fctb2e.hcp.westeurope.azmk8s.io
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: false
