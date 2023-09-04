@@ -9,6 +9,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type = "SystemAssigned"
   }
 
+  key_vault_secrets_provider {
+    secret_rotation_enabled = true
+  }
+
   default_node_pool {
     name            = "agentpool"
     vm_size         = "Standard_B2s"

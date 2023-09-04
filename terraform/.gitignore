@@ -1,1 +1,3 @@
 /.terraform/
+/cloudflare-api.yml
+/test-ingress.yml

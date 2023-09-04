@@ -4,6 +4,9 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.71.0"
     }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+    }
   }
 
   backend "azurerm" {
@@ -29,6 +32,14 @@ provider "helm" {
 }
 
 provider "kubernetes" {
+  host = data.azurerm_kubernetes_cluster.aks.kube_config[0].host
+
+  client_key             = base64decode(data.azurerm_kubernetes_cluster.aks.kube_config[0].client_key)
+  client_certificate     = base64decode(data.azurerm_kubernetes_cluster.aks.kube_config[0].client_certificate)
+  cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.aks.kube_config[0].cluster_ca_certificate)
+}
+
+provider "kubectl" {
   host = data.azurerm_kubernetes_cluster.aks.kube_config[0].host
 
   client_key             = base64decode(data.azurerm_kubernetes_cluster.aks.kube_config[0].client_key)

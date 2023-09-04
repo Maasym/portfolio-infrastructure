@@ -17,21 +17,15 @@ resource "azurerm_key_vault" "keyvault" {
 
     secret_permissions      = var.secret_permissions
     key_permissions         = var.key_permissions
+    certificate_permissions = var.certificate_permissions
   }
-}
 
-resource "azurerm_key_vault_access_policy" "aks-access-to-kv" {
-  key_vault_id     = data.azurerm_key_vault.keyvault.id
-  tenant_id        = data.azurerm_client_config.current.tenant_id
-  object_id        = data.azurerm_kubernetes_cluster.aks.kubelet_identity.0.object_id
+  access_policy {
+    object_id    = azurerm_kubernetes_cluster.aks.kubelet_identity.0.object_id
+    tenant_id    = data.azurerm_client_config.current.tenant_id
 
-  certificate_permissions = [
-    "Get",
-  ]
-
-  secret_permissions = [
-    "Get",
-  ]
-
-  depends_on = [data.azurerm_kubernetes_cluster.aks]
+    secret_permissions      = var.secret_permissions
+    key_permissions         = var.key_permissions
+    certificate_permissions = var.certificate_permissions
+  }
 }

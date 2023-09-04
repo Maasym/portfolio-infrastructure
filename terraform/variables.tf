@@ -10,3 +10,8 @@ variable "secret_permissions" {
   default     = ["Get", "Set", "List", "Delete", "Recover", "Backup", "Restore", "Purge"]
 }
 
+variable "certificate_permissions" {
+  type        = list(string)
+  description = "List of secret permissions."
+  default     = ["Get", "List", "Update", "Create", "Import", "Delete", "Recover", "Backup", "Restore", "Purge"]
+}
