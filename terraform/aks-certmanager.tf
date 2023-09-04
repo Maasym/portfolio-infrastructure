@@ -92,6 +92,27 @@ spec:
     EOF
 }
 
+resource "kubectl_manifest" "spech-main-dev-tls" {
+  yaml_body  = <<-EOF
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: spech-main-dev-tls
+  namespace: infrastructure-certmanager
+spec:
+  secretName: spech-main-dev-tls
+  secretTemplate:
+    annotations:
+      kubed.appscode.com/sync: "app=kubed"
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: 'spech.dev'
+  dnsNames:
+    - "spech.dev"
+    EOF
+}
+
 resource "kubectl_manifest" "secret" {
   yaml_body  = <<-EOF
 apiVersion: bitnami.com/v1alpha1
